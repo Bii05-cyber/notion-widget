@@ -1,5 +1,5 @@
 body {
-  background: #121212;
+  background: transparent; /* outside is clear in Notion */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,10 +10,10 @@ body {
 
 /* Card */
 .spotify-card {
-  background: #181818;
+  background: #181818; /* card stays black */
   color: white;
   border-radius: 16px;
-  width: 320px;
+  width: 260px; /* smaller than 320px */
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
   display: flex;
@@ -23,25 +23,25 @@ body {
 /* Cover art */
 .cover {
   width: 100%;
-  height: 200px;
+  height: 160px; /* smaller than 200px */
   object-fit: cover;
 }
 
 /* Meta info */
 .meta {
-  padding: 16px;
+  padding: 12px;
   position: relative;
 }
 
 .meta h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 16px; /* smaller than 18px */
   font-weight: bold;
 }
 
 .meta p {
-  margin: 4px 0 12px;
-  font-size: 14px;
+  margin: 4px 0 10px;
+  font-size: 13px; /* smaller than 14px */
   color: #b3b3b3;
 }
 
@@ -51,9 +51,9 @@ body {
   color: white;
   border: none;
   border-radius: 50%;
-  width: 56px;
-  height: 56px;
-  font-size: 22px;
+  width: 48px;  /* smaller than 56px */
+  height: 48px;
+  font-size: 20px; /* smaller than 22px */
   font-weight: bold;
   cursor: pointer;
   transition: transform 0.2s ease, background 0.2s ease;
@@ -67,9 +67,9 @@ body {
 /* Tracklist */
 .tracklist {
   background: #121212;
-  padding: 10px 16px;
-  font-size: 14px;
-  max-height: 220px;
+  padding: 8px 12px;
+  font-size: 13px; /* slightly smaller */
+  max-height: 180px; /* smaller than 220px */
   overflow-y: auto;
   border-top: 1px solid #282828;
 }
@@ -77,7 +77,7 @@ body {
 .track {
   display: flex;
   justify-content: space-between;
-  padding: 6px 0;
+  padding: 5px 0;
   border-bottom: 1px solid #222;
   cursor: pointer;
   color: #ddd;
