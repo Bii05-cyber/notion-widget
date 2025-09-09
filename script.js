@@ -1,3 +1,7 @@
+titleEl.textContent = "Study Playlist";
+artistEl.textContent = "by Starlight_Dreamer";
+
+
 // 🎶 Replace with your SoundCloud playlist URL
 const soundcloudURL = "https://soundcloud.com/kianfong-wong/sets/study-playlist";
 
@@ -34,12 +38,6 @@ playBtn.addEventListener("click", () => {
 widget.bind(SC.Widget.Events.PLAY, () => {
   isPlaying = true;
   playBtn.textContent = "⏸";
-
-  widget.getCurrentSound(track => {
-    if (track) {
-      titleEl.textContent = track.title;
-      artistEl.textContent = track.user.username;
-    }
   });
 
   // Highlight current track
