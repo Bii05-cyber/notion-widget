@@ -1,5 +1,5 @@
 // 🎶 Replace this with your SoundCloud playlist URL
-const soundcloudURL = "https://soundcloud.com/kianfong-wong/sets/study-playlist?si=e6d0d79f11ce4c7dbd0791114f828d27&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing";
+const soundcloudURL = "https://on.soundcloud.com/Sw2hfbRrLJ09vCAzMn";
 
 // Setup iframe player
 const iframe = document.getElementById("scPlayer");
