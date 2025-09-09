@@ -77,5 +77,5 @@ widget.bind(SC.Widget.Events.READY, () => {
         tracklistEl.appendChild(row);
       });
     });
-  }, 6000); // Wait 2 seconds to ensure tracks load
+  }, 8000); // Wait 2 seconds to ensure tracks load
 });
