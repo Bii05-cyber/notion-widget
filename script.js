@@ -1,5 +1,5 @@
 // 🎶 Replace with your SoundCloud playlist URL
-const soundcloudURL = "https://soundcloud.com/kianfong-wong/sets/study-playlist";
+const soundcloudURL = "https://soundcloud.com/kianfong-wong/sets/study-playlist?si=5641384bdf754973838ffed0e1505917&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing";
 
 // Setup hidden player
 const iframe = document.getElementById("scPlayer");
