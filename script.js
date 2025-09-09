@@ -1,5 +1,5 @@
 const client_id = '5fdc593b7fac43d09f36ff59862f2224';
-const redirect_uri = 'https://YOUR_GITHUB_USERNAME.github.io/spotify-widget/callback';
+const redirect_uri = 'https://bii05-cyber.github.io/spotify-widget/callback';
 const scopes = 'streaming user-read-playback-state user-modify-playback-state playlist-read-private';
 
 const loginBtn = document.getElementById('login');
