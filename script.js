@@ -1,22 +1,22 @@
-// 🎶 Replace this with your SoundCloud playlist URL
-const soundcloudURL = "https://on.soundcloud.com/Sw2hfbRrLJ09vCAzMn";
+// 🎶 Replace with your SoundCloud playlist URL
+const soundcloudURL = "https://soundcloud.com/kianfong-wong/sets/study-playlist";
 
-// Setup iframe player
+// Setup hidden player
 const iframe = document.getElementById("scPlayer");
-iframe.src = `https://w.soundcloud.com/player/?url=${encodeURIComponent(soundcloudURL)}&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&visual=false`;
+iframe.src = `https://w.soundcloud.com/player/?url=${encodeURIComponent(soundcloudURL)}&auto_play=false&show_comments=false&show_user=false&visual=false&single_active=true`;
 
 const widget = SC.Widget(iframe);
 
-// DOM elements
+// Elements
 const playBtn = document.getElementById("play");
-const prevBtn = document.getElementById("prev");
-const nextBtn = document.getElementById("next");
 const titleEl = document.getElementById("title");
 const artistEl = document.getElementById("artist");
+const coverEl = document.getElementById("cover");
+const tracklistEl = document.getElementById("tracklist");
 
-// Track play/pause state
 let isPlaying = false;
 
+// Toggle play/pause
 playBtn.addEventListener("click", () => {
   if (isPlaying) {
     widget.pause();
@@ -25,32 +25,35 @@ playBtn.addEventListener("click", () => {
   }
 });
 
-prevBtn.addEventListener("click", () => {
-  widget.prev();
-});
-
-nextBtn.addEventListener("click", () => {
-  widget.next();
-});
-
-// Update play button icon
+// Update UI on play
 widget.bind(SC.Widget.Events.PLAY, () => {
   isPlaying = true;
   playBtn.textContent = "⏸";
+  widget.getCurrentSound(track => {
+    if (track) {
+      titleEl.textContent = track.title;
+      artistEl.textContent = track.user.username;
+      coverEl.src = track.artwork_url || "https://via.placeholder.com/100";
+    }
+  });
 });
 
+// Update UI on pause
 widget.bind(SC.Widget.Events.PAUSE, () => {
   isPlaying = false;
   playBtn.textContent = "▶";
 });
 
-// Update track info
-widget.bind(SC.Widget.Events.PLAY, () => {
-  widget.getCurrentSound(sound => {
-    if (sound) {
-      titleEl.textContent = sound.title;
-      artistEl.textContent = sound.user.username;
-      document.getElementById("cover").src = sound.artwork_url || "https://via.placeholder.com/150";
-    }
+// Populate playlist
+widget.bind(SC.Widget.Events.READY, () => {
+  widget.getSounds(sounds => {
+    tracklistEl.innerHTML = "";
+    sounds.forEach((track, i) => {
+      const row = document.createElement("div");
+      row.className = "track";
+      row.innerHTML = `<div>${i+1}. ${track.title}</div><span>${Math.floor(track.duration/60000)}:${String(Math.floor((track.duration%60000)/1000)).padStart(2,'0')}</span>`;
+      row.onclick = () => widget.skip(i);
+      tracklistEl.appendChild(row);
+    });
   });
 });
