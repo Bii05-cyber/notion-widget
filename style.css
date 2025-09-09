@@ -4,9 +4,11 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  font-family: Arial, sans-serif;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
 }
 
+/* Card */
 .spotify-card {
   background: #181818;
   color: white;
@@ -14,61 +16,62 @@ body {
   width: 320px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-}
-
-.header {
   display: flex;
-  align-items: center;
-  padding: 15px;
-  position: relative;
+  flex-direction: column;
 }
 
-.header img {
-  width: 70px;
-  height: 70px;
-  border-radius: 8px;
+/* Cover art */
+.cover {
+  width: 100%;
+  height: 200px;
   object-fit: cover;
 }
 
+/* Meta info */
 .meta {
-  flex: 1;
-  margin-left: 12px;
+  padding: 16px;
+  position: relative;
 }
 
 .meta h3 {
   margin: 0;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
 }
 
 .meta p {
-  margin: 4px 0 0;
-  font-size: 12px;
+  margin: 4px 0 12px;
+  font-size: 14px;
   color: #b3b3b3;
 }
 
+/* Play button */
 .play-btn {
-  background: white;
-  color: black;
+  background: #1db954;
+  color: white;
   border: none;
   border-radius: 50%;
-  width: 48px;
-  height: 48px;
-  font-size: 20px;
+  width: 56px;
+  height: 56px;
+  font-size: 22px;
   font-weight: bold;
   cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 
 .play-btn:hover {
+  background: #1ed760;
   transform: scale(1.05);
 }
 
+/* Tracklist */
 .tracklist {
   background: #121212;
-  padding: 10px 15px;
+  padding: 10px 16px;
   font-size: 14px;
-  max-height: 200px;
+  max-height: 220px;
   overflow-y: auto;
+  border-top: 1px solid #282828;
 }
 
 .track {
@@ -76,12 +79,33 @@ body {
   justify-content: space-between;
   padding: 6px 0;
   border-bottom: 1px solid #222;
+  cursor: pointer;
+  color: #ddd;
 }
 
 .track:last-child {
   border-bottom: none;
 }
 
-.track span {
-  color: #b3b3b3;
+.track:hover {
+  color: #fff;
+  background: #1a1a1a;
+}
+
+/* Active track */
+.track.active {
+  color: #1db954;
+  font-weight: bold;
+}
+
+/* Scrollbar styling */
+.tracklist::-webkit-scrollbar {
+  width: 6px;
+}
+.tracklist::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+.tracklist::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
