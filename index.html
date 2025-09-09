@@ -7,21 +7,31 @@
 </head>
 <body>
   <div class="spotify-card">
-    <div class="header">
-      <img id="cover" src="https://via.placeholder.com/100" alt="Cover">
-      <div class="meta">
-        <h3 id="title">Playlist Title</h3>
-        <p id="artist">by You</p>
-      </div>
+    <!-- Cover Art -->
+    <img id="cover" src="https://via.placeholder.com/400" alt="Cover" class="cover">
+
+    <!-- Playlist Info -->
+    <div class="meta">
+      <h3 id="title">Playlist Title</h3>
+      <p id="artist">by You</p>
       <button id="play" class="play-btn">▶</button>
     </div>
 
+    <!-- Tracklist -->
     <div class="tracklist" id="tracklist">
       <p style="color:#aaa; font-size:14px;">Loading tracks...</p>
     </div>
 
     <!-- Hidden SoundCloud player -->
-    <iframe id="scPlayer" width="100%" height="120" frameborder="no" allow="autoplay"></iframe>
+    <iframe 
+      id="scPlayer" 
+      width="0" 
+      height="0" 
+      style="display:none;"
+      scrolling="no" 
+      frameborder="no" 
+      allow="autoplay">
+    </iframe>
   </div>
 
   <script src="https://w.soundcloud.com/player/api.js"></script>
