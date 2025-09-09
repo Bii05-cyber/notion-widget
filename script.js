@@ -1,7 +1,3 @@
-titleEl.textContent = "Study Playlist";
-artistEl.textContent = "by Starlight_Dreamer";
-
-
 // 🎶 Replace with your SoundCloud playlist URL
 const soundcloudURL = "https://soundcloud.com/kianfong-wong/sets/study-playlist";
 
@@ -20,8 +16,10 @@ const artistEl = document.getElementById("artist");
 const tracklistEl = document.getElementById("tracklist");
 const coverEl = document.getElementById("cover");
 
-// Set your custom cover here
+// --- CUSTOM SETTINGS ---
 coverEl.src = "cover.jpg";
+titleEl.textContent = "Study Lofi Playlist";
+artistEl.textContent = "by Starlight_Dreamer";
 
 let isPlaying = false;
 
@@ -38,7 +36,6 @@ playBtn.addEventListener("click", () => {
 widget.bind(SC.Widget.Events.PLAY, () => {
   isPlaying = true;
   playBtn.textContent = "⏸";
-  });
 
   // Highlight current track
   widget.getCurrentSoundIndex(index => {
@@ -56,7 +53,7 @@ widget.bind(SC.Widget.Events.PAUSE, () => {
 
 // Populate tracklist when ready
 widget.bind(SC.Widget.Events.READY, () => {
-  // wait a bit to let SoundCloud load the full playlist
+  // Give SoundCloud a moment to load the full playlist
   setTimeout(() => {
     widget.getSounds(sounds => {
       tracklistEl.innerHTML = "";
@@ -82,3 +79,4 @@ widget.bind(SC.Widget.Events.READY, () => {
     });
   }, 5000);
 });
+
