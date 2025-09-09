@@ -1,4 +1,4 @@
-// 🎶 Replace with your clean SoundCloud playlist URL
+// 🎶 Replace with your SoundCloud playlist URL
 const soundcloudURL = "https://soundcloud.com/kianfong-wong/sets/study-playlist";
 
 // Setup hidden player
@@ -13,8 +13,11 @@ const widget = SC.Widget(iframe);
 const playBtn = document.getElementById("play");
 const titleEl = document.getElementById("title");
 const artistEl = document.getElementById("artist");
-const coverEl = document.getElementById("cover");
 const tracklistEl = document.getElementById("tracklist");
+const coverEl = document.getElementById("cover");
+
+// Set your custom cover here
+coverEl.src = "cover.jpg";
 
 let isPlaying = false;
 
@@ -36,6 +39,7 @@ widget.bind(SC.Widget.Events.PLAY, () => {
     if (track) {
       titleEl.textContent = track.title;
       artistEl.textContent = track.user.username;
+    }
   });
 
   // Highlight current track
@@ -46,13 +50,13 @@ widget.bind(SC.Widget.Events.PLAY, () => {
   });
 });
 
-
 // Update UI on pause
 widget.bind(SC.Widget.Events.PAUSE, () => {
   isPlaying = false;
   playBtn.textContent = "▶";
 });
 
+// Populate tracklist when ready
 widget.bind(SC.Widget.Events.READY, () => {
   // wait a bit to let SoundCloud load the full playlist
   setTimeout(() => {
@@ -78,5 +82,5 @@ widget.bind(SC.Widget.Events.READY, () => {
         tracklistEl.appendChild(row);
       });
     });
-  }, 4000); // 👈 half a second delay before fetching
+  }, 5000);
 });
