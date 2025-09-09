@@ -4,27 +4,57 @@
   <meta charset="UTF-8">
   <title>Spotify Mini Player</title>
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 20px; }
-    #controls { margin-top: 20px; }
-    button { padding: 10px 20px; margin: 5px; }
-    #track { margin-top: 15px; font-weight: bold; }
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      background: #121212;
+      color: #fff;
+    }
+    #playerContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      width: 320px;
+    }
+    img { width: 200px; border-radius: 10px; }
+    #track { margin-top: 10px; font-weight: bold; text-align: center; }
+    #artist { color: #b3b3b3; font-size: 0.9em; text-align: center; }
+    #controls { margin-top: 15px; display: flex; justify-content: center; gap: 15px; }
+    button { padding: 10px; border: none; border-radius: 50%; background: #1db954; color: #fff; cursor: pointer; font-size: 16px; }
+    button:hover { background: #1ed760; }
+    progress { width: 100%; margin-top: 10px; height: 5px; border-radius: 5px; }
+    #playlistURL { width: 100%; padding: 8px; border-radius: 5px; border: none; margin-top: 10px; }
+    #loadPlaylist { margin-top: 10px; padding: 10px; width: 100%; background: #1db954; border-radius: 5px; border: none; cursor: pointer; }
+    #loadPlaylist:hover { background: #1ed760; }
+    #login { padding: 10px 20px; margin-bottom: 20px; background: #1db954; border: none; border-radius: 5px; cursor: pointer; }
+    #login:hover { background: #1ed760; }
   </style>
 </head>
 <body>
   <h2>Spotify Mini Player</h2>
   <button id="login">Connect Spotify</button>
-  <div id="playerUI" style="display:none;">
-    <input type="text" id="playlistURL" placeholder="Enter playlist URL" style="width: 60%;">
-    <button id="loadPlaylist">Load Playlist</button>
+  <div id="playerContainer" style="display:none;">
+    <img id="albumArt" src="" alt="Album Art">
+    <div id="track">No track playing</div>
+    <div id="artist"></div>
+    <progress id="progress" value="0" max="100"></progress>
     <div id="controls">
       <button id="prev">⏮️</button>
       <button id="play">▶️</button>
       <button id="next">⏭️</button>
     </div>
-    <div id="track">No track playing</div>
-    <progress id="progress" value="0" max="100" style="width:80%;"></progress>
+    <input type="text" id="playlistURL" placeholder="Enter playlist URL">
+    <button id="loadPlaylist">Load Playlist</button>
   </div>
 
   <script src="script.js"></script>
 </body>
 </html>
+
