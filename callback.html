@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spotify OAuth Callback</title>
+</head>
+<body>
+  <h2>Redirecting...</h2>
+  <script>
+    // Extract the access token from URL hash
+    const hash = window.location.hash.substring(1)
+      .split('&')
+      .reduce((acc, curr) => {
+        const [key, value] = curr.split('=');
+        acc[key] = value;
+        return acc;
+      }, {});
+
+    localStorage.setItem('spotify_access_token', hash.access_token);
+    window.location.href = '/';
+  </script>
+</body>
+</html>
