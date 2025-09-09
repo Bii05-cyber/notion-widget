@@ -18,7 +18,7 @@ const coverEl = document.getElementById("cover");
 
 // --- CUSTOM SETTINGS ---
 coverEl.src = "cover.jpg";
-titleEl.textContent = "Study Lofi Playlist";
+titleEl.textContent = "Lofi Study Playlist";
 artistEl.textContent = "by Starlight_Dreamer";
 
 let isPlaying = false;
@@ -53,30 +53,28 @@ widget.bind(SC.Widget.Events.PAUSE, () => {
 
 // Populate tracklist when ready
 widget.bind(SC.Widget.Events.READY, () => {
-  // Give SoundCloud a moment to load the full playlist
-  setTimeout(() => {
-    widget.getSounds(sounds => {
-      tracklistEl.innerHTML = "";
+  widget.getPlaylist(playlist => {
+    if (!playlist || !playlist.tracks) return;
 
-      const validTracks = sounds.filter(track => track && track.title);
+    tracklistEl.innerHTML = "";
 
-      validTracks.forEach((track, i) => {
-        const row = document.createElement("div");
-        row.className = "track";
+    playlist.tracks.forEach((track, i) => {
+      const row = document.createElement("div");
+      row.className = "track";
 
-        const minutes = Math.floor(track.duration / 60000);
-        const seconds = Math.floor((track.duration % 60000) / 1000);
-        const formattedTime = `${minutes}:${String(seconds).padStart(2, "0")}`;
+      const minutes = Math.floor(track.duration / 60000);
+      const seconds = Math.floor((track.duration % 60000) / 1000);
+      const formattedTime = `${minutes}:${String(seconds).padStart(2, "0")}`;
 
-        row.innerHTML = `
-          <div>${i + 1}. ${track.title}<br><span style="color:#aaa;font-size:12px;">${track.user.username}</span></div>
-          <span>${formattedTime}</span>
-        `;
+      row.innerHTML = `
+        <div>${i + 1}. ${track.title}<br><span style="color:#aaa;font-size:12px;">${track.user.username}</span></div>
+        <span>${formattedTime}</span>
+      `;
 
-        row.onclick = () => widget.skip(i);
-        tracklistEl.appendChild(row);
+      row.onclick = () => widget.skip(i);
+      tracklistEl.appendChild(row);
       });
     });
-  }, 5000);
+  }, 4000);
 });
 
