@@ -36,10 +36,6 @@ widget.bind(SC.Widget.Events.PLAY, () => {
     if (track) {
       titleEl.textContent = track.title;
       artistEl.textContent = track.user.username;
-
-      // fallback: use track artwork OR user avatar OR playlist artwork
-     coverEl.src = "cover.jpg";
-    }
   });
 
   // Highlight current track
@@ -82,5 +78,5 @@ widget.bind(SC.Widget.Events.READY, () => {
         tracklistEl.appendChild(row);
       });
     });
-  }, 2000); // 👈 half a second delay before fetching
+  }, 4000); // 👈 half a second delay before fetching
 });
