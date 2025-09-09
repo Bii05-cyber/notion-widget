@@ -30,20 +30,29 @@ body {
 /* Meta info */
 .meta {
   padding: 12px;
-  position: relative;
+  display: flex;              /* arrange horizontally */
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Group text elements together */
+.meta-text {
+  display: flex;
+  flex-direction: column;
 }
 
 .meta h3 {
   margin: 0;
-  font-size: 16px; /* smaller than 18px */
+  font-size: 16px;
   font-weight: bold;
 }
 
 .meta p {
-  margin: 4px 0 10px;
-  font-size: 13px; /* smaller than 14px */
+  margin: 2px 0 0;
+  font-size: 13px;
   color: #b3b3b3;
 }
+
 
 /* Play button */
 .play-btn {
