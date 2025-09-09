@@ -10,7 +10,7 @@ body {
 
 /* Card */
 .soundcloud-card {
-  background: black;
+  background: #fff;
   color: #333;
   border-radius: 12px;
   width: 280px; /* smaller width */
