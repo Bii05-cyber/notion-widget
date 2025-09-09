@@ -88,5 +88,5 @@ widget.bind(SC.Widget.Events.READY, () => {
         tracklistEl.appendChild(row);
       });
     });
-  }, 1000); // 👈 half a second delay before fetching
+  }, 2000); // 👈 half a second delay before fetching
 });
