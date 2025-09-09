@@ -54,29 +54,30 @@ widget.bind(SC.Widget.Events.PAUSE, () => {
   playBtn.textContent = "▶";
 });
 
-// Populate playlist
 widget.bind(SC.Widget.Events.READY, () => {
-  widget.getSounds(sounds => {
-    tracklistEl.innerHTML = "";
+  // wait a bit to let SoundCloud load the full playlist
+  setTimeout(() => {
+    widget.getSounds(sounds => {
+      tracklistEl.innerHTML = "";
 
-    // Filter out invalid tracks
-    const validTracks = sounds.filter(track => track && track.title);
+      const validTracks = sounds.filter(track => track && track.title);
 
-    validTracks.forEach((track, i) => {
-      const row = document.createElement("div");
-      row.className = "track";
+      validTracks.forEach((track, i) => {
+        const row = document.createElement("div");
+        row.className = "track";
 
-      const minutes = Math.floor(track.duration / 60000);
-      const seconds = Math.floor((track.duration % 60000) / 1000);
-      const formattedTime = `${minutes}:${String(seconds).padStart(2, "0")}`;
+        const minutes = Math.floor(track.duration / 60000);
+        const seconds = Math.floor((track.duration % 60000) / 1000);
+        const formattedTime = `${minutes}:${String(seconds).padStart(2, "0")}`;
 
-      row.innerHTML = `
-        <div>${i + 1}. ${track.title}<br><span style="color:#aaa;font-size:12px;">${track.user.username}</span></div>
-        <span>${formattedTime}</span>
-      `;
+        row.innerHTML = `
+          <div>${i + 1}. ${track.title}<br><span style="color:#aaa;font-size:12px;">${track.user.username}</span></div>
+          <span>${formattedTime}</span>
+        `;
 
-      row.onclick = () => widget.skip(i);
-      tracklistEl.appendChild(row);
+        row.onclick = () => widget.skip(i);
+        tracklistEl.appendChild(row);
+      });
     });
-  });
+  }, 500); // 👈 half a second delay before fetching
 });
