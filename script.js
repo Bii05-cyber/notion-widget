@@ -38,13 +38,7 @@ widget.bind(SC.Widget.Events.PLAY, () => {
       artistEl.textContent = track.user.username;
 
       // fallback: use track artwork OR user avatar OR playlist artwork
-      if (track.artwork_url) {
-        coverEl.src = track.artwork_url.replace("-large", "-t500x500");
-      } else if (track.user && track.user.avatar_url) {
-        coverEl.src = track.user.avatar_url.replace("-large", "-t500x500");
-      } else {
-        coverEl.src = "https://via.placeholder.com/400";
-      }
+     coverEl.src = "cover.jpg";
     }
   });
 
