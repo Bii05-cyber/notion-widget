@@ -1,0 +1,69 @@
+const client_id = 'YOUR_CLIENT_ID'; // Spotify app client ID
+const redirect_uri = 'https://YOUR_GITHUB_USERNAME.github.io/spotify-widget/callback';
+const scopes = 'streaming user-read-playback-state user-modify-playback-state playlist-read-private';
+
+const loginBtn = document.getElementById('login');
+const playerUI = document.getElementById('playerUI');
+
+loginBtn.onclick = () => {
+  const auth_url = `https://accounts.spotify.com/authorize?client_id=${client_id}&response_type=token&redirect_uri=${encodeURIComponent(redirect_uri)}&scope=${encodeURIComponent(scopes)}`;
+  window.location.href = auth_url;
+};
+
+let player, device_id, token;
+token = localStorage.getItem('spotify_access_token');
+
+if(token) {
+  loginBtn.style.display = 'none';
+  playerUI.style.display = 'block';
+
+  const script = document.createElement('script');
+  script.src = "https://sdk.scdn.co/spotify-player.js";
+  document.body.appendChild(script);
+
+  window.onSpotifyWebPlaybackSDKReady = () => {
+    player = new Spotify.Player({
+      name: 'Notion Mini Player',
+      getOAuthToken: cb => { cb(token); }
+    });
+
+    player.addListener('ready', ({ device_id: id }) => {
+      console.log('Ready with Device ID', id);
+      device_id = id;
+    });
+
+    player.addListener('player_state_changed', state => {
+      if (!state) return;
+      const track = state.track_window.current_track;
+      document.getElementById('track').innerText = `${track.name} - ${track.artists[0].name}`;
+      const progress = (state.position / state.duration) * 100;
+      document.getElementById('progress').value = progress;
+      document.getElementById('play').innerText = state.paused ? '▶️' : '⏸️';
+    });
+
+    player.connect();
+  };
+}
+
+// Control buttons
+document.getElementById('play').onclick = async () => {
+  const state = await player.getCurrentState();
+  if(state.paused) await player.resume();
+  else await player.pause();
+};
+
+document.getElementById('next').onclick = () => player.nextTrack();
+document.getElementById('prev').onclick = () => player.previousTrack();
+
+document.getElementById('loadPlaylist').onclick = async () => {
+  const playlistURL = document.getElementById('playlistURL').value;
+  const playlistId = playlistURL.split('/playlist/')[1]?.split('?')[0];
+  if(!playlistId) return alert('Invalid playlist URL');
+
+  // Start playback using Spotify Web API
+  fetch(`https://api.spotify.com/v1/me/player/play?device_id=${device_id}`, {
+    method: 'PUT',
+    body: JSON.stringify({ context_uri: `spotify:playlist:${playlistId}` }),
+    headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
+  });
+};
