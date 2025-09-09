@@ -1,3 +1,8 @@
+// Set custom playlist info
+titleEl.textContent = "Study Playlist";
+artistEl.textContent = "by Starlight_Dreamer";
+
+
 // 🎶 Replace with your SoundCloud playlist URL
 const soundcloudURL = "https://soundcloud.com/kianfong-wong/sets/study-playlist";
 
