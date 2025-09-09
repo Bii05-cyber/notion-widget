@@ -1,9 +1,11 @@
-// 🎶 Replace with your SoundCloud playlist URL
-const soundcloudURL = "https://soundcloud.com/kianfong-wong/sets/study-playlist?si=5641384bdf754973838ffed0e1505917&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing";
+// 🎶 Replace with your clean SoundCloud playlist URL
+const soundcloudURL = "https://soundcloud.com/kianfong-wong/sets/study-playlist";
 
 // Setup hidden player
 const iframe = document.getElementById("scPlayer");
-iframe.src = `https://w.soundcloud.com/player/?url=${encodeURIComponent(soundcloudURL)}&auto_play=false&show_comments=false&show_user=false&visual=false&single_active=true`;
+iframe.src = `https://w.soundcloud.com/player/?url=${encodeURIComponent(
+  soundcloudURL
+)}&auto_play=false&show_comments=false&show_user=false&visual=false&single_active=true`;
 
 const widget = SC.Widget(iframe);
 
@@ -29,12 +31,20 @@ playBtn.addEventListener("click", () => {
 widget.bind(SC.Widget.Events.PLAY, () => {
   isPlaying = true;
   playBtn.textContent = "⏸";
+
   widget.getCurrentSound(track => {
     if (track) {
       titleEl.textContent = track.title;
       artistEl.textContent = track.user.username;
-      coverEl.src = track.artwork_url || "https://via.placeholder.com/100";
+      coverEl.src = track.artwork_url || "https://via.placeholder.com/400";
     }
+  });
+
+  // Highlight current track
+  widget.getCurrentSoundIndex(index => {
+    document.querySelectorAll(".track").forEach((el, i) => {
+      el.classList.toggle("active", i === index);
+    });
   });
 });
 
@@ -48,10 +58,23 @@ widget.bind(SC.Widget.Events.PAUSE, () => {
 widget.bind(SC.Widget.Events.READY, () => {
   widget.getSounds(sounds => {
     tracklistEl.innerHTML = "";
-    sounds.forEach((track, i) => {
+
+    // Filter out invalid tracks
+    const validTracks = sounds.filter(track => track && track.title);
+
+    validTracks.forEach((track, i) => {
       const row = document.createElement("div");
       row.className = "track";
-      row.innerHTML = `<div>${i+1}. ${track.title}</div><span>${Math.floor(track.duration/60000)}:${String(Math.floor((track.duration%60000)/1000)).padStart(2,'0')}</span>`;
+
+      const minutes = Math.floor(track.duration / 60000);
+      const seconds = Math.floor((track.duration % 60000) / 1000);
+      const formattedTime = `${minutes}:${String(seconds).padStart(2, "0")}`;
+
+      row.innerHTML = `
+        <div>${i + 1}. ${track.title}<br><span style="color:#aaa;font-size:12px;">${track.user.username}</span></div>
+        <span>${formattedTime}</span>
+      `;
+
       row.onclick = () => widget.skip(i);
       tracklistEl.appendChild(row);
     });
